@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
+import dotenv from "dotenv"
+dotenv.config({ path: "./.env" })
 
 export default function Home() {
   const navigate = useNavigate()
@@ -34,7 +36,7 @@ export default function Home() {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/v1/login",
+        process.env.BACKEND_URL + "/v1/login",
         loginData
       )
 
@@ -57,10 +59,13 @@ export default function Home() {
     if (signupData.password !== signupData.confirmPassword) return // Prevent request if passwords don’t match
 
     try {
-      const response = await axios.post("http://localhost:3000/v1/signup", {
-        username: signupData.username,
-        password: signupData.password,
-      })
+      const response = await axios.post(
+        process.env.BACKEND_URL + "/v1/signup",
+        {
+          username: signupData.username,
+          password: signupData.password,
+        }
+      )
 
       const accessToken = await response.data?.data?.accessToken
 
