@@ -33,8 +33,7 @@ interface Device {
   device_id: string
   name: string
 }
-import dotenv from "dotenv"
-dotenv.config({ path: "./.env" })
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 export default function Dashboard() {
   const [devices, setDevices] = useState<Device[]>([])
@@ -52,7 +51,7 @@ export default function Dashboard() {
     setIsLoading(true)
     try {
       await axios.post(
-        process.env.BACKEND_URL + "/v1/device/add",
+        BACKEND_URL + "/v1/device/add",
         { uuid, name },
         {
           headers: {
@@ -78,14 +77,11 @@ export default function Dashboard() {
 
   const fetchDevices = async () => {
     try {
-      const response = await axios.get(
-        process.env.BACKEND_URL + "/v1/device/all",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      )
+      const response = await axios.get(BACKEND_URL + "/v1/device/all", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
       console.log(response.data.data.devices[0].device_id)
       if (response.data.data.devices.length > 0) {
         console.log(response.data.data.devices)
@@ -101,7 +97,7 @@ export default function Dashboard() {
   const fetchReadings = async (deviceId: string) => {
     try {
       const response = await axios.get(
-        process.env.BACKEND_URL + `/v1/reading/one/${deviceId}`,
+        BACKEND_URL + `/v1/reading/one/${deviceId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
