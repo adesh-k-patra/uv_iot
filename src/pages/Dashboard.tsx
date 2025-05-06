@@ -390,7 +390,7 @@ export default function Dashboard() {
         <TableHeader className="bg-indigo-50 border-black hover:bg-indigo-200 cursor-pointer">
           <TableRow className="hover:bg-indigo-200">
             <TableHead className="text-center">Date</TableHead>
-            <TableHead className="text-center">ON Time</TableHead>
+            {/* <TableHead className="text-center">ON Time</TableHead> */}
             {/* <TableHead className="text-center">OFF Time</TableHead> */}
             <TableHead className="text-center">
               UV Index recorded (latest)
@@ -414,7 +414,7 @@ export default function Dashboard() {
           {readings.map((reading, index) => (
             <TableRow key={index}>
               <TableCell className="text-center">{reading.date}</TableCell>
-              <TableCell className="text-center">{reading.on_time}</TableCell>
+              {/* <TableCell className="text-center">{reading.on_time}</TableCell> */}
               {/* <TableCell className="text-center">{reading.off_time}</TableCell> */}
               <TableCell className="text-center">{reading.uv_index}</TableCell>
               <TableCell className="text-center">
